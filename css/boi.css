@@ -1,0 +1,332 @@
+/* ================================ */
+/*    BOI PAGE — DEDICATED STYLES   */
+/* ================================ */
+
+/* ── HERO ─────────────────────────────────────────── */
+.boi-hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 160px 8% 100px;
+    background: var(--primary);
+    position: relative;
+    overflow: hidden;
+    gap: 60px;
+}
+
+/* Subtle grid line background */
+.boi-hero__grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+}
+
+.boi-hero__orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.boi-hero__orb--1 {
+    width: 600px; height: 600px;
+    top: -150px; right: -50px;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.06) 0%, transparent 65%);
+}
+
+.boi-hero__orb--2 {
+    width: 300px; height: 300px;
+    bottom: 60px; left: 5%;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.03) 0%, transparent 65%);
+}
+
+.boi-hero__content {
+    position: relative;
+    z-index: 2;
+}
+
+.boi-hero h1 {
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    line-height: 0.9;
+    margin: 1.5rem 0;
+}
+
+.boi-hero p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 500px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+}
+
+.boi-hero__chips {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* BOI emblem right side */
+.boi-hero__badge-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.boi-emblem {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boi-emblem__ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 242, 255, 0.1);
+    pointer-events: none;
+}
+
+.boi-emblem__ring--1 { width: 260px; height: 260px; }
+.boi-emblem__ring--2 {
+    width: 340px; height: 340px;
+    border-color: rgba(0, 242, 255, 0.06);
+    border-style: dashed;
+}
+.boi-emblem__ring--3 {
+    width: 420px; height: 420px;
+    border-color: rgba(0, 242, 255, 0.03);
+}
+
+.boi-emblem__center {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(0, 242, 255, 0.05);
+    border: 1px solid rgba(0, 242, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 60px rgba(0, 242, 255, 0.08);
+}
+
+.boi-emblem__center i {
+    font-size: 3rem;
+    color: var(--accent);
+    filter: drop-shadow(0 0 15px var(--accent-glow));
+}
+
+.boi-emblem__center span {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    color: var(--accent);
+}
+
+/* ── BOI SERVICES ──────────────────────────────────── */
+.boi-services {
+    padding: 120px 8%;
+    background: var(--primary);
+}
+
+.boi-services__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.boi-svc-card {
+    background: #010a1a;
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.boi-svc-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0, 242, 255, 0.07);
+}
+
+.boi-svc-card--featured {
+    background: linear-gradient(160deg, #011828 0%, #010a1a 100%);
+    border-color: rgba(0, 242, 255, 0.12);
+}
+
+.boi-svc-card--featured::before {
+    content: 'Core Service';
+    position: absolute;
+    top: 22px; right: 22px;
+    background: var(--accent);
+    color: var(--primary);
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 50px;
+}
+
+.boi-svc-card__icon {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+    display: inline-block;
+}
+
+.boi-svc-card h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.9rem;
+    color: #fff;
+}
+
+.boi-svc-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+}
+
+.boi-svc-card__glow {
+    position: absolute;
+    bottom: -50px; right: -50px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ── WHY IDEC FOR BOI ──────────────────────────────── */
+.boi-why {
+    padding: 120px 8%;
+    background: #01040a;
+    border-top: 1px solid var(--glass-border);
+}
+
+.boi-why__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.boi-why__item {
+    background: #010a1a;
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.boi-why__item:hover {
+    border-color: var(--accent);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 242, 255, 0.05);
+}
+
+.boi-why__num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 5.5rem;
+    font-weight: 800;
+    color: rgba(0, 242, 255, 0.04);
+    position: absolute;
+    top: -5px; right: 16px;
+    line-height: 1;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.boi-why__item:hover .boi-why__num {
+    color: rgba(0, 242, 255, 0.09);
+}
+
+.boi-why__icon {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+    display: inline-block;
+}
+
+.boi-why__item h4 {
+    font-size: 1.15rem;
+    margin-bottom: 0.8rem;
+    color: #fff;
+}
+
+.boi-why__item p {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 900px) {
+    .boi-hero { grid-template-columns: 1fr; }
+    .boi-hero__badge-display { display: none; }
+    .boi-services__grid { grid-template-columns: 1fr; }
+    .boi-why__grid { grid-template-columns: 1fr; }
+}
+
+/* -- CTA SECTION ------------------------------------- */
+.boi-cta {
+    padding: 130px 8%;
+    background: linear-gradient(135deg, #010a1a 0%, var(--primary) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.boi-cta__orb {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.boi-cta__content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.boi-cta__content h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.1;
+}
+
+.boi-cta__content p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1.85;
+    max-width: 580px;
+}
