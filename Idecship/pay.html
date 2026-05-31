@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Online Bill Payment | IDEC SHIPPING & TRADING (PVT) LTD</title>
+  <link rel="stylesheet" href="src/css/style.css">
+  <link rel="stylesheet" href="src/css/pay.css">
+  <meta name="description" content="Securely pay your freight, shipping, customs, or vehicle logistics invoices online. IDEC Shipping & Trading (Pvt) Ltd.">
+  <link rel="icon" href="public/img/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="public/img/icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Load PayPal SDK (using sandbox client ID 'test' for immediate end-to-end trials) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+  <!-- Load CryptoJS library for client-side sandbox hash generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+
+<body>
+
+  <nav id="navbar">
+    <ul>
+      <li><a href="index.html#home">Home</a></li>
+      <li><a href="import.html">Import</a></li>
+      <li><a href="export.html">Export</a></li>
+      <li><a href="vehicles.html">Vehicles</a></li>
+      <li><a href="boi.html">BOI</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="pay.html" class="nav-btn-pay">Pay Online</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="pay-hero">
+    <div class="pay-hero__orb pay-hero__orb--1"></div>
+    <div class="pay-hero__orb pay-hero__orb--2"></div>
+    <div class="pay-hero__content">
+      <span class="badge">Secure Payment Gateway</span>
+      <h1>Pay Bills <span class="gradient-text">Online</span></h1>
+      <p>Settle your freight forwarding, customs brokerage, or import/export clearance invoices instantly. We support all major local and international credit/debit cards and digital wallets.</p>
+    </div>
+  </header>
+
+  <!-- ===== PAYMENT BODY ===== -->
+  <section class="pay-body">
+    <div class="pay-body__inner">
+
+      <!-- LEFT — Billing details form -->
+      <div class="pay-form-wrap">
+        <div class="pay-section-header">
+          <h3><i class="fas fa-file-invoice-dollar"></i><span>Invoice Details</span></h3>
+          <p>Please fill out your billing information exactly as shown on your IDEC invoice statement.</p>
+        </div>
+
+        <form class="pay-form" id="invoiceForm">
+          <div class="pay-form__row">
+            <div class="pay-form__group">
+              <label for="invoiceNo">Invoice / Bill Number</label>
+              <input type="text" id="invoiceNo" placeholder="e.g. INV-2026-1042" required>
+            </div>
+            <div class="pay-form__group">
+              <label for="clientName">Client Name / Company</label>
+              <input type="text" id="clientName" placeholder="e.g. Acme Lanka (Pvt) Ltd" required>
+            </div>
+          </div>
+
+          <div class="pay-form__row">
+            <div class="pay-form__group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="client@company.com" required>
+            </div>
+            <div class="pay-form__group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+94 77 XXX XXXX" required>
+            </div>
+          </div>
+
+          <div class="pay-form__group">
+            <label for="amount">Payment Amount</label>
+            <div class="currency-input-wrap">
+              <select id="currency" class="currency-select" required>
+                <option value="LKR" selected>LKR (Rs.)</option>
+                <option value="USD">USD ($)</option>
+              </select>
+              <input type="number" id="amount" placeholder="0.00" min="1" step="any" required>
+            </div>
+          </div>
+
+          <button type="submit" class="payhere-btn" style="margin-top: 10px;">
+            <span>Proceed to Payment</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- RIGHT — Payment Terminal -->
+      <div class="pay-terminal pay-terminal--empty" id="paymentTerminal">
+        <!-- Terminal Empty State -->
+        <div id="terminalEmptyState">
+          <i class="fas fa-credit-card"></i>
+          <h3>Payment Terminal Ready</h3>
+          <p style="font-size: 0.95rem; max-width: 320px; margin: 0.5rem auto 0; line-height: 1.6;">
+            Fill in your invoice details on the left and click <strong>Proceed to Payment</strong> to choose your payment method.
+          </p>
+        </div>
+
+        <!-- Terminal Active State (Hidden Initially) -->
+        <div id="terminalActiveState" style="display: none; width: 100%;">
+          <div class="pay-section-header">
+            <h3><i class="fas fa-shield-halved"></i><span>Secure Checkout</span></h3>
+            <p>Select your preferred method to complete your invoice payment securely.</p>
+          </div>
+
+          <div class="pay-amount-summary">
+            <span>Amount Due</span>
+            <h3 id="displayAmount">LKR 0.00</h3>
+          </div>
+
+          <label class="pay-form__group" style="margin-bottom: 0.6rem;">
+            <span style="font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted);">
+              Choose Payment Method
+            </span>
+          </label>
+
+          <div class="gateway-grid">
+            <!-- Option 1: PayHere (Credit Card / Local) -->
+            <div class="gateway-card gateway-card--selected" id="cardPayhere">
+              <div class="gateway-card__info">
+                <div class="gateway-card__logo">
+                  <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="gateway-card__details">
+                  <h4>Credit / Debit Card</h4>
+                  <p>Visa, Mastercard, AMEX (PayHere)</p>
+                </div>
+              </div>
+              <div class="gateway-card__check">
+                <i class="fas fa-check"></i>
+              </div>
+            </div>
+
+            <!-- Option 2: PayPal (International USD) -->
+            <div class="gateway-card" id="cardPaypal">
+              <div class="gateway-card__info">
+                <div class="gateway-card__logo">
+                  <i class="fab fa-paypal"></i>
+                </div>
+                <div class="gateway-card__details">
+                  <h4>PayPal / USD Cards</h4>
+                  <p>International Currency only</p>
+                </div>
+              </div>
+              <div class="gateway-card__check">
+                <i class="fas fa-check"></i>
+              </div>
+            </div>
+          </div>
+
+          <div id="currencyWarning" class="pay-currency-warning" style="display: none;">
+            <i class="fas fa-circle-info"></i>
+            <span>PayPal does not support LKR. Please change the currency on the left to USD to activate PayPal.</span>
+          </div>
+
+          <!-- Checkout actions container -->
+          <div class="pay-action-area">
+
+            <!-- PayHere Checkout trigger (hidden standard form redirection) -->
+            <div id="payhereActionArea">
+              <!-- PayHere Standard Integration Form -->
+              <!-- For production, replace 'sandbox.payhere.lk' with 'www.payhere.lk' and add real merchant_id -->
+              <form action="https://sandbox.payhere.lk/pay/checkout" method="post" id="payhereForm">
+                <input type="hidden" name="merchant_id" id="ph_merchant_id" value="1236035">
+                <input type="hidden" name="hash" id="ph_hash" value="">
+                <input type="hidden" name="return_url" id="ph_return_url" value="">
+                <input type="hidden" name="cancel_url" id="ph_cancel_url" value="">
+                <input type="hidden" name="notify_url" value="https://idecship.com/payment/notify"> <!-- Mock listener -->
+
+                <!-- Order Details -->
+                <input type="hidden" name="order_id" id="ph_order_id">
+                <input type="hidden" name="items" id="ph_items">
+                <input type="hidden" name="currency" id="ph_currency">
+                <input type="hidden" name="amount" id="ph_amount">
+
+                <!-- Client Details -->
+                <input type="hidden" name="first_name" id="ph_first_name">
+                <input type="hidden" name="last_name" id="ph_last_name">
+                <input type="hidden" name="email" id="ph_email">
+                <input type="hidden" name="phone" id="ph_phone">
+                <input type="hidden" name="address" value="38, Hospital Street">
+                <input type="hidden" name="city" value="Colombo">
+                <input type="hidden" name="country" value="Sri Lanka">
+
+                <button type="submit" class="payhere-btn">
+                  <span>Pay Securely with Card</span>
+                  <i class="fas fa-lock"></i>
+                </button>
+              </form>
+            </div>
+
+            <!-- PayPal Checkout trigger -->
+            <div id="paypalActionArea" style="display: none; width: 100%;">
+              <div id="paypal-button-container"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Terminal Receipt State (Hidden Initially) -->
+        <div id="terminalReceiptState" style="display: none; width: 100%;">
+          <div class="pay-receipt">
+            <div class="pay-receipt__header">
+              <div class="pay-receipt__success-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <h3>IDEC SHIPPING</h3>
+              <p>PAYMENT TRANSACTION RECEIPT</p>
+            </div>
+
+            <table class="pay-receipt__table">
+              <tr>
+                <td>Receipt No:</td>
+                <td id="receiptNo">RCP-9827364</td>
+              </tr>
+              <tr>
+                <td>Invoice No:</td>
+                <td id="receiptInvoice">INV-2026-1042</td>
+              </tr>
+              <tr>
+                <td>Client:</td>
+                <td id="receiptClient">Acme Lanka</td>
+              </tr>
+              <tr>
+                <td>Date / Time:</td>
+                <td id="receiptDate">2026-05-30 12:12:00</td>
+              </tr>
+              <tr>
+                <td>Gateway:</td>
+                <td id="receiptGateway">PayPal Checkout</td>
+              </tr>
+              <tr>
+                <td>Status:</td>
+                <td style="color: #16a34a; font-weight: 800;">APPROVED</td>
+              </tr>
+            </table>
+
+            <div class="pay-receipt__total">
+              <span>Amount Paid</span>
+              <h2 id="receiptAmount">USD 150.00</h2>
+            </div>
+
+            <div class="pay-receipt__barcode">
+              <div class="pay-receipt__barcode-img"></div>
+              <span id="barcodeText">IDECSHIP9827364</span>
+            </div>
+
+            <button onclick="window.print()" class="pay-receipt__print-btn">
+              <i class="fas fa-print"></i>
+              <span>Print Receipt</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="con-footer">
+    <p>&copy; 2026 IDEC SHIPPING & TRADING (PVT) LTD. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="https://wa.me/94715459206" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script src="src/js/app.js"></script>
+
+  <script>
+    // ==========================================
+    // PAYHERE CONFIGURATION (BACKGROUND ONLY)
+    // ==========================================
+    // Paste your credentials here once. Clients will never see them,
+    // and the system will automatically sign all payments in the background.
+    const PAYHERE_MERCHANT_ID = "1236035";
+    const PAYHERE_MERCHANT_SECRET = "MTg0NDE3NDY3NTIyMzI2Nzc3MjM4MzQ0MDgxMzQ3NjIyODI0MDc="; // Paste your Sandbox Secret here!
+
+    // State management variables
+    let invoiceData = {
+      invoiceNo: '',
+      clientName: '',
+      email: '',
+      phone: '',
+      currency: 'LKR',
+      amount: 0.00
+    };
+
+    let selectedGateway = 'payhere'; // Default gateway is PayHere
+
+    // Set dynamic redirect URLs for PayHere Sandbox return loops
+    const currentURL = window.location.href.split('?')[0];
+    document.getElementById('ph_return_url').value = currentURL + '?status=success';
+    document.getElementById('ph_cancel_url').value = currentURL + '?status=cancel';
+
+    // Listen for returns from PayHere Sandbox redirect loop
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const paymentStatus = urlParams.get('status');
+
+      if (paymentStatus === 'success') {
+        // Load mock details or retrieve from localStorage
+        const cachedPay = JSON.parse(localStorage.getItem('last_payment_attempt')) || {
+          invoiceNo: 'INV-2026-TEMP',
+          clientName: 'Valued Client',
+          amount: 'LKR 0.00',
+          currency: 'LKR'
+        };
+
+        showReceipt({
+          invoiceNo: cachedPay.invoiceNo,
+          clientName: cachedPay.clientName,
+          amount: cachedPay.amount,
+          gateway: 'PayHere Secure Card Integration'
+        });
+
+        // Clean URL query parameters
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } else if (paymentStatus === 'cancel') {
+        alert("Payment was cancelled or failed. Please check your card details and try again.");
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    });
+
+    // Invoice Form submit validation & proceeding
+    document.getElementById('invoiceForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Capture details
+      invoiceData.invoiceNo = document.getElementById('invoiceNo').value.trim();
+      invoiceData.clientName = document.getElementById('clientName').value.trim();
+      invoiceData.email = document.getElementById('email').value.trim();
+      invoiceData.phone = document.getElementById('phone').value.trim();
+      invoiceData.currency = document.getElementById('currency').value;
+      invoiceData.amount = parseFloat(document.getElementById('amount').value);
+
+      // Cache payment details in localStorage so we can read them upon PayHere return redirect
+      localStorage.setItem('last_payment_attempt', JSON.stringify({
+        invoiceNo: invoiceData.invoiceNo,
+        clientName: invoiceData.clientName,
+        amount: `${invoiceData.currency} ${invoiceData.amount.toFixed(2)}`,
+        currency: invoiceData.currency
+      }));
+
+      // Update Display elements
+      document.getElementById('displayAmount').innerText = `${invoiceData.currency} ${invoiceData.amount.toFixed(2)}`;
+
+      // Configure hidden PayHere form fields
+      document.getElementById('ph_merchant_id').value = PAYHERE_MERCHANT_ID;
+      document.getElementById('ph_order_id').value = invoiceData.invoiceNo;
+      document.getElementById('ph_items').value = `Payment for Invoice ${invoiceData.invoiceNo}`;
+      document.getElementById('ph_currency').value = invoiceData.currency;
+      const amountFormatted = invoiceData.amount.toFixed(2);
+      document.getElementById('ph_amount').value = amountFormatted;
+
+      // Calculate Secure PayHere Hash dynamically using background config secrets
+      if (PAYHERE_MERCHANT_SECRET && PAYHERE_MERCHANT_SECRET !== "YOUR_SANDBOX_MERCHANT_SECRET") {
+        // Hashed Secret = MD5(merchant_secret).toUpperCase()
+        const hashedSecret = CryptoJS.MD5(PAYHERE_MERCHANT_SECRET).toString().toUpperCase();
+
+        // Hash String = merchant_id + order_id + formatted_amount + currency + MD5(merchant_secret)
+        const hashString = PAYHERE_MERCHANT_ID + invoiceData.invoiceNo + amountFormatted + invoiceData.currency + hashedSecret;
+
+        // Final Hash = MD5(hash_string).toUpperCase()
+        const finalHash = CryptoJS.MD5(hashString).toString().toUpperCase();
+        document.getElementById('ph_hash').value = finalHash;
+      } else {
+        document.getElementById('ph_hash').value = "";
+        console.warn("PayHere Merchant Secret is not set. Payments may fail validation.");
+      }
+
+      // Set name details for PayHere (splits into first and last name fields)
+      const nameParts = invoiceData.clientName.split(' ');
+      document.getElementById('ph_first_name').value = nameParts[0] || 'Client';
+      document.getElementById('ph_last_name').value = nameParts.slice(1).join(' ') || 'Logistics';
+      document.getElementById('ph_email').value = invoiceData.email;
+      document.getElementById('ph_phone').value = invoiceData.phone;
+
+      // Hide Empty State and Show Active State in terminal
+      document.getElementById('terminalEmptyState').style.display = 'none';
+      document.getElementById('terminalReceiptState').style.display = 'none';
+      document.getElementById('terminalActiveState').style.display = 'block';
+      document.getElementById('paymentTerminal').className = 'pay-terminal pay-terminal--active';
+
+      // Handle gateway selector state depending on currency compatibility
+      handleCurrencyRules();
+    });
+
+    // Manage LKR/USD rules
+    function handleCurrencyRules() {
+      const paypalCard = document.getElementById('cardPaypal');
+      const warning = document.getElementById('currencyWarning');
+
+      if (invoiceData.currency === 'LKR') {
+        // PayPal is not supported, disable it and switch to payhere
+        paypalCard.style.opacity = '0.5';
+        paypalCard.style.cursor = 'not-allowed';
+        paypalCard.classList.remove('gateway-card--selected');
+        warning.style.display = 'flex';
+        selectGateway('payhere');
+      } else {
+        // PayPal is active
+        paypalCard.style.opacity = '1';
+        paypalCard.style.cursor = 'pointer';
+        warning.style.display = 'none';
+      }
+    }
+
+    // Gateway selection event listeners
+    document.getElementById('cardPayhere').addEventListener('click', function() {
+      selectGateway('payhere');
+    });
+
+    document.getElementById('cardPaypal').addEventListener('click', function() {
+      if (invoiceData.currency === 'LKR') return; // Do nothing if LKR
+      selectGateway('paypal');
+    });
+
+    function selectGateway(gateway) {
+      selectedGateway = gateway;
+      const phCard = document.getElementById('cardPayhere');
+      const ppCard = document.getElementById('cardPaypal');
+      const phArea = document.getElementById('payhereActionArea');
+      const ppArea = document.getElementById('paypalActionArea');
+
+      if (gateway === 'payhere') {
+        phCard.classList.add('gateway-card--selected');
+        ppCard.classList.remove('gateway-card--selected');
+        phArea.style.display = 'block';
+        ppArea.style.display = 'none';
+      } else {
+        ppCard.classList.add('gateway-card--selected');
+        phCard.classList.remove('gateway-card--selected');
+        ppArea.style.display = 'block';
+        phArea.style.display = 'none';
+
+        // Render PayPal Smart Buttons inside container if not already done
+        renderPaypalButton();
+      }
+    }
+
+    // PayPal buttons renderer
+    let paypalRendered = false;
+    function renderPaypalButton() {
+      if (paypalRendered) {
+        // Redraw/reset the amount if needed
+        return;
+      }
+
+      paypal.Buttons({
+        style: {
+          layout: 'vertical',
+          color:  'gold',
+          shape:  'rect',
+          label:  'paypal'
+        },
+        createOrder: function(data, actions) {
+          // Set transaction values dynamically
+          return actions.order.create({
+            purchase_units: [{
+              description: `Payment for Invoice ${invoiceData.invoiceNo}`,
+              amount: {
+                currency_code: 'USD',
+                value: invoiceData.amount.toFixed(2)
+              }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            // PayPal payment successfully processed!
+            showReceipt({
+              invoiceNo: invoiceData.invoiceNo,
+              clientName: invoiceData.clientName,
+              amount: `USD ${invoiceData.amount.toFixed(2)}`,
+              gateway: 'PayPal Secure Smart Checkout'
+            });
+
+            // Clear inputs
+            document.getElementById('invoiceForm').reset();
+          });
+        },
+        onError: function(err) {
+          alert('An error occurred during PayPal checkout. Please try again.');
+          console.error(err);
+        }
+      }).render('#paypal-button-container');
+
+      paypalRendered = true;
+    }
+
+    // Receipt screen trigger
+    function showReceipt(data) {
+      // Hide active checkout state
+      document.getElementById('terminalActiveState').style.display = 'none';
+
+      // Update Receipt Fields
+      const randReceipt = 'RCP-' + Math.floor(1000000 + Math.random() * 9000000);
+      document.getElementById('receiptNo').innerText = randReceipt;
+      document.getElementById('receiptInvoice').innerText = data.invoiceNo;
+      document.getElementById('receiptClient').innerText = data.clientName;
+      document.getElementById('receiptAmount').innerText = data.amount;
+      document.getElementById('receiptGateway').innerText = data.gateway;
+
+      const now = new Date();
+      const dateStr = now.getFullYear() + '-' +
+                      String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                      String(now.getDate()).padStart(2, '0') + ' ' +
+                      String(now.getHours()).padStart(2, '0') + ':' +
+                      String(now.getMinutes()).padStart(2, '0') + ':' +
+                      String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('receiptDate').innerText = dateStr;
+
+      const randBarcode = 'IDECSHIP' + Math.floor(1000000 + Math.random() * 9000000);
+      document.getElementById('barcodeText').innerText = randBarcode;
+
+      // Show Receipt Container
+      document.getElementById('terminalReceiptState').style.display = 'block';
+      document.getElementById('paymentTerminal').className = 'pay-terminal';
+    }
+
+    // Intercept PayHere Form Submission to handle Demo Simulation Fallback
+    document.getElementById('payhereForm').addEventListener('submit', function(e) {
+      if (!PAYHERE_MERCHANT_SECRET || PAYHERE_MERCHANT_SECRET === "YOUR_SANDBOX_MERCHANT_SECRET") {
+        // Prevent redirect since credentials are not configured
+        e.preventDefault();
+
+        const btn = this.querySelector('.payhere-btn');
+        const originalBtnHTML = btn.innerHTML;
+
+        // Show realistic loading state
+        btn.innerHTML = '<span>Authorizing Transaction...</span><i class="fas fa-spinner fa-spin"></i>';
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+
+        // Simulate secure bank authentication response
+        setTimeout(() => {
+          // Restore button
+          btn.innerHTML = originalBtnHTML;
+          btn.disabled = false;
+          btn.style.opacity = '';
+
+          // Transition to the receipt screen with actual client inputs
+          showReceipt({
+            invoiceNo: invoiceData.invoiceNo,
+            clientName: invoiceData.clientName,
+            amount: `${invoiceData.currency} ${invoiceData.amount.toFixed(2)}`,
+            gateway: 'PayHere Sandbox Simulation Terminal'
+          });
+
+          // Reset inputs
+          document.getElementById('invoiceForm').reset();
+        }, 2000);
+      }
+    });
+  </script>
+
+</body>
+</html>
