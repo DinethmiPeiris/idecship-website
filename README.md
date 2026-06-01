@@ -2,7 +2,8 @@
 
 Official website for IDECSHIP.
 
-##About
+## About
+
 IDECSHIP is a modern web platform designed to provide a clean and professional online presence. The website includes responsive pages, smooth navigation, animations, and user-friendly design for visitors across desktop and mobile devices.
 
 ## Features
