@@ -5,7 +5,7 @@ Official website for IDECSHIP.
 ##About
 IDECSHIP is a modern web platform designed to provide a clean and professional online presence. The website includes responsive pages, smooth navigation, animations, and user-friendly design for visitors across desktop and mobile devices.
 
-##Features
+## Features
 
 -Responsive modern UI
 -Fast loading pages
@@ -14,7 +14,7 @@ IDECSHIP is a modern web platform designed to provide a clean and professional o
 -GitHub-based deploymen
 -Hosted using Netlify
 
-##Technologies Used
+## Technologies Used
 
 -HTML
 -CSS
@@ -22,21 +22,21 @@ IDECSHIP is a modern web platform designed to provide a clean and professional o
 -GitHub
 -Netlify
 
-##Live Website
+## Live Website
 
 https://idecship.com
 
-##Deployment
+## Deployment
 
 The website is deployed using Netlify and connected to a custom domain
 
-##Getting Started
+## Getting Started
 
 To run the project locally:
 git clone https://github.com/DinethmiPeiris/idecship-website.git
 
 Open the project folder and run it using a local server or directly open index.html.
 
-##Author
+## Author
 
 Developed for IDECSHIP.
