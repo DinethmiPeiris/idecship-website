@@ -1,10 +1,10 @@
 # Idecship Website
 
-Official website for IDECSHIP.
+Official website for IDEC SHIPPING & TRADING (PVT) LTD.
 
 ## About
 
-IDECSHIP is a modern web platform designed to provide a clean and professional online presence. The website includes responsive pages, smooth navigation, animations, and user-friendly design for visitors across desktop and mobile devices.
+IDEC SHIPPING & TRADING (PVT) LTD is a modern web platform designed to provide a clean and professional online presence. The website includes responsive pages, smooth navigation, animations, and user-friendly design for visitors across desktop and mobile devices.
 
 ## Features
 
