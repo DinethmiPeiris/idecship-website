@@ -8,20 +8,20 @@ IDECSHIP is a modern web platform designed to provide a clean and professional o
 
 ## Features
 
--**Responsive modern UI**
--**Fast loading pages**
--**Mobile-friendly design**
--**Custom domain integration**
--**GitHub-based deployment**
--**Hosted using Netlify**
+- **Responsive modern UI**
+- **Fast loading pages**
+- **Mobile-friendly design**
+- **Custom domain integration**
+- **GitHub-based deployment**
+- **Hosted using Netlify**
 
 ### Technologies Used
 
--HTML
--CSS
--JavaScript
--GitHub
--Netlify
+- HTML
+- CSS
+- JavaScript
+- GitHub
+- Netlify
 
 ## Live Website
 
