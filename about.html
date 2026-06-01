@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About Us | IDEC SHIPPING & TRADING (PVT) LTD</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="about.css">
   <meta name="description" content="Learn more about IDEC SHIPPING & TRADING (PVT) LTD — our story, mission, and commitment to global logistics excellence.">
-  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="icon.png" type="image/png">
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -41,24 +41,24 @@
   </header>
 
   <!-- ===== MISSION STRIP ===== -->
-  <div class="abt-mission-strip">
+  <div class="abt-mission-strip" id="statsStrip">
     <div class="abt-mission-strip__item">
-      <span class="abt-mission-strip__value gradient-text">100<span>%</span></span>
+      <span class="abt-mission-strip__value gradient-text"><span class="abt-count" data-target="100">0</span><span>%</span></span>
       <span class="abt-mission-strip__label">Client Satisfaction Focus</span>
     </div>
     <div class="abt-mission-strip__divider"></div>
     <div class="abt-mission-strip__item">
-      <span class="abt-mission-strip__value gradient-text">500<span>+</span></span>
+      <span class="abt-mission-strip__value gradient-text"><span class="abt-count" data-target="500">0</span><span>+</span></span>
       <span class="abt-mission-strip__label">Shipments Handled</span>
     </div>
     <div class="abt-mission-strip__divider"></div>
     <div class="abt-mission-strip__item">
-      <span class="abt-mission-strip__value gradient-text">50<span>+</span></span>
+      <span class="abt-mission-strip__value gradient-text"><span class="abt-count" data-target="50">0</span><span>+</span></span>
       <span class="abt-mission-strip__label">Global Trade Routes</span>
     </div>
     <div class="abt-mission-strip__divider"></div>
     <div class="abt-mission-strip__item">
-      <span class="abt-mission-strip__value gradient-text">10<span>+</span></span>
+      <span class="abt-mission-strip__value gradient-text"><span class="abt-count" data-target="20">0</span><span>+</span></span>
       <span class="abt-mission-strip__label">Years of Experience</span>
     </div>
   </div>
@@ -72,28 +72,31 @@
     <div class="abt-story__body">
       <div class="abt-story__text">
         <h2>Built on trust,<br>driven by <span class="gradient-text">excellence</span></h2>
-        <p>IDEC Shipping and Trading (Pvt) Ltd was founded with a single, clear purpose — to remove the complexity from international trade and give businesses of every size access to world-class logistics. Headquartered in the heart of Colombo, we have grown into one of Sri Lanka's most trusted freight forwarding and customs clearance specialists.</p>
-        <p>Over the years, we have forged strong partnerships with global shipping lines, airlines, and government authorities, enabling us to offer our clients unparalleled access to international trade networks. Our deep roots in Colombo's trade community give us a distinct advantage in navigating Sri Lanka's regulatory environment with speed and precision.</p>
+        <p>In 2004, Idec Shipping and Trading (Pvt) Ltd set sail with a vision—to revolutionize shipping and logistics in Sri Lanka. What started as a small venture soon grew into a trusted name in the industry, driven by a passion for efficiency and seamless service.</p>
+        <p>Nestled in the heart of Colombo, right beside the Port of Colombo, our location became more than just an address—it became a strategic advantage. From here, we built strong partnerships with a global network, handling customs clearance for vehicles, cargo, and containers with precision and reliability.</p>
+        <p>Over the years, our commitment to excellence led us to expand our reach. With deep-rooted relationships with Sri Lanka Ports Authority, Airports Authority, and Customs, we ensured that every shipment moved without delays, every process ran smoothly, and every client received a hassle-free, professional experience.</p>
+        <p>Behind our success is a team of highly skilled professionals, dedicated to providing swift, cost-effective, and customer-centric solutions. As we continue to grow, we remain committed to innovation, financial strength, and setting new industry standards, ensuring that every shipment entrusted to us is handled with care and expertise.</p>
+        <p>At Idec Shipping and Trading (Pvt) Ltd, we don’t just move cargo—we move businesses forward.</p>
       </div>
       <div class="abt-story__cards">
         <div class="abt-story__card">
           <i class="fas fa-globe"></i>
-          <h4>Global Reach</h4>
+          <h3>Global Reach</h3>
           <p>Connections across all major international shipping lanes and air cargo routes.</p>
         </div>
         <div class="abt-story__card">
           <i class="fas fa-medal"></i>
-          <h4>Proven Track Record</h4>
+          <h3>Proven Track Record</h3>
           <p>Years of successful freight management across import, export, BOI, and vehicle logistics.</p>
         </div>
         <div class="abt-story__card">
           <i class="fas fa-users"></i>
-          <h4>Expert Team</h4>
+          <h3>Expert Team</h3>
           <p>A dedicated team of logistics and customs specialists committed to your success.</p>
         </div>
         <div class="abt-story__card">
           <i class="fas fa-location-dot"></i>
-          <h4>Colombo Based</h4>
+          <h3>Colombo Based</h3>
           <p>Strategically located at Colombo 01, minutes from the port and key trade authorities.</p>
         </div>
       </div>
@@ -102,18 +105,20 @@
 
   <!-- ===== MISSION & VISION ===== -->
   <section class="abt-mv">
-    <div class="abt-mv__card abt-mv__card--mission">
-      <div class="abt-mv__icon"><i class="fas fa-bullseye"></i></div>
-      <h3>Our Mission</h3>
-      <p>To deliver seamless, compliant, and cost-effective logistics solutions that empower Sri Lankan businesses to compete and thrive in the global marketplace. We achieve this by combining regulatory expertise, a global network, and a relentless focus on client success.</p>
-      <div class="abt-mv__glow"></div>
-    </div>
     <div class="abt-mv__card abt-mv__card--vision">
       <div class="abt-mv__icon"><i class="fas fa-eye"></i></div>
       <h3>Our Vision</h3>
-      <p>To be recognized as Sri Lanka's most trusted and innovative shipping and trading partner — a company that sets the benchmark for excellence in logistics, builds lasting client relationships, and contributes to the nation's growth as a global trading hub.</p>
+      <p>To become the most trusted and preferred service provider in our industry, known for our commitment to quality, innovation, and customer satisfaction. We aim to build a reputation for excellence, integrity, and continuous improvement.</p>
       <div class="abt-mv__glow"></div>
     </div>
+
+    <div class="abt-mv__card abt-mv__card--mission">
+      <div class="abt-mv__icon"><i class="fas fa-bullseye"></i></div>
+      <h3>Our Mission</h3>
+      <p>Our mission is to provide outstanding, reliable, and customer-focused services that enhance the success of our clients. We are dedicated to delivering tailored solutions that meet the unique needs of each customer, ensuring satisfaction and fostering long-term relationships.</p>
+      <div class="abt-mv__glow"></div>
+    </div>
+
   </section>
 
   <!-- ===== CORE VALUES ===== -->
@@ -214,7 +219,7 @@
       <div class="contact-grid">
         <div class="info-card glass">
           <h4>Address</h4>
-          <p>38, Hospital Street,<br>Colombo 01, Sri Lanka</p>
+          <p>38, <br>Hospital Street,<br>Colombo 01, <br>Sri Lanka</p>
         </div>
         <div class="info-card glass">
           <h4>Contact</h4>
@@ -242,6 +247,55 @@
     </div>
   </section>
 
-  <script src="js/app.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    // ── Counter Animation ─────────────────────────────────────────────
+    (function () {
+      const strip = document.getElementById('statsStrip');
+      const counters = strip.querySelectorAll('.abt-count');
+      let animated = false;
+
+      // Easing: easeOutQuad — fast start, smooth finish
+      function easeOutQuad(t) { return t * (2 - t); }
+
+      function animateCounter(el, target, duration) {
+        const start = performance.now();
+        el.closest('.abt-mission-strip__value').classList.add('counting');
+
+        function step(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeOutQuad(progress);
+          el.textContent = Math.floor(eased * target);
+
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = target; // ensure exact final value
+            el.closest('.abt-mission-strip__value').classList.remove('counting');
+          }
+        }
+        requestAnimationFrame(step);
+      }
+
+      // Fire once when the strip enters the viewport
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !animated) {
+            animated = true;
+            counters.forEach((counter, i) => {
+              const target = parseInt(counter.dataset.target, 10);
+              // Stagger each counter by 150ms
+              setTimeout(() => animateCounter(counter, target, 2000), i * 150);
+            });
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      observer.observe(strip);
+    })();
+  </script>
 </body>
 </html>

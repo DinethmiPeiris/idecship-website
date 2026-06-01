@@ -112,6 +112,21 @@
     background: var(--glass-border);
 }
 
+/* Counter glow — active while counting up */
+@keyframes countGlow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.4)); }
+    50%       { filter: drop-shadow(0 0 22px rgba(0, 242, 255, 0.85)); }
+}
+
+.abt-mission-strip__value.counting {
+    animation: countGlow 0.6s ease-in-out infinite;
+}
+
+/* The inner number span */
+.abt-count {
+    display: inline;
+}
+
 /* ── OUR STORY ─────────────────────────────────────── */
 .abt-story {
     padding: 120px 8%;

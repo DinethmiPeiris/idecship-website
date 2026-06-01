@@ -111,7 +111,7 @@ nav ul li a.nav-btn-pay:hover {
     display: flex;
     align-items: center;
     padding: 0 8%;
-    background: linear-gradient(rgba(0, 4, 13, 0.7), rgba(0, 4, 13, 0.3)), url('../img/hero.png');
+    background: linear-gradient(rgba(0, 4, 13, 0.7), rgba(0, 4, 13, 0.3)), url('hero.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -407,7 +407,7 @@ nav ul li a.nav-btn-pay:hover {
 .contact {
     position: relative;
     padding: 150px 8%;
-    background: linear-gradient(rgba(0, 4, 13, 0.9), rgba(0, 4, 13, 0.8)), url('../img/port.png');
+    background: linear-gradient(rgba(0, 4, 13, 0.9), rgba(0, 4, 13, 0.8)), url('../../public/img/port.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -530,16 +530,247 @@ nav ul li a.nav-btn-pay:hover {
     transform: none;
 }
 
+/* ========================= */
+/* NAV BRAND (logo text)     */
+/* ========================= */
+
+.nav-brand {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.nav-brand span {
+    color: var(--accent);
+}
+
+/* ========================= */
+/* HAMBURGER BUTTON          */
+/* ========================= */
+
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 8px;
+    flex-shrink: 0;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.nav-hamburger:hover {
+    border-color: var(--accent);
+    background: rgba(0, 242, 255, 0.06);
+}
+
+.ham-bar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.25s ease,
+                width 0.3s ease;
+    transform-origin: center;
+}
+
+/* Morph to × when active */
+.nav-hamburger.active .ham-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav-hamburger.active .ham-bar:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+.nav-hamburger.active .ham-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ========================= */
+/* MOBILE RESPONSIVE         */
+/* ========================= */
+
 @media (max-width: 768px) {
+
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    /* On mobile, push hamburger to the right */
+    nav {
+        justify-content: space-between;
+    }
+
+    /* Show hamburger, hide normal horizontal nav */
+    .nav-hamburger {
+        display: flex;
+    }
+
+    nav ul {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 4, 13, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        z-index: 998;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(-12px);
+        transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    nav ul.open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: all;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    nav ul li:first-child {
+        border-top: 1px solid var(--glass-border);
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 1.2rem 2rem;
+        font-size: 1rem;
+        opacity: 0.85;
+        letter-spacing: 3px;
+    }
+
+    nav ul li a:hover {
+        background: rgba(0, 242, 255, 0.06);
+    }
+
+    nav ul li a.nav-btn-pay {
+        margin: 1.5rem auto 0;
+        display: inline-block;
+        width: auto;
+        border-radius: 50px;
+    }
+
+    /* ── Hero text ── */
+    .hero h1 { font-size: 3rem; letter-spacing: -2px; }
+    .import-premium-hero h1,
+    .export-hero h1,
+    .vehicle-hero h1,
+    .about-hero h1 { font-size: 3rem; line-height: 1; }
+
+    /* ── Grids collapse to single column ── */
     .about-container { grid-template-columns: 1fr; gap: 40px; }
-    .about-title h2 { font-size: 2.5rem; }
-    .hero h1 { font-size: 3.5rem; }
+    .about-title h2 { font-size: 2.2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .compliance-grid { grid-template-columns: 1fr; }
+    .premium-services-grid { grid-template-columns: 1fr; }
+    .other-services-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+
+    /* ── Export stats bar ── */
+    .export-hero-stats {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+    .stat-divider { width: 60px; height: 1px; }
+
+    /* ── Import service cards ── */
+    .imp-services__grid { grid-template-columns: 1fr; }
+    .imp-compliance__grid { grid-template-columns: 1fr; }
+    .imp-strip { flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .imp-hero__chips { flex-wrap: wrap; }
+
+    /* ── Vehicles hero ── */
+    .veh-hero { grid-template-columns: 1fr; }
+    .veh-hero__icon-display { display: none; }
+
+    /* ── About page ── */
+    .abt-mission-strip {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        text-align: center;
+    }
+    .abt-mission-strip__divider { width: 60px; height: 1px; }
+    .abt-story__body { flex-direction: column; }
+    .abt-story__cards { grid-template-columns: 1fr 1fr; }
+    .abt-mv { flex-direction: column; }
+    .abt-values__grid { grid-template-columns: 1fr; }
+    .abt-why__inner { flex-direction: column; }
+
+    /* ── BOI page ── */
+    .boi-why__grid { grid-template-columns: 1fr; }
+
+    /* ── Pay page form ── */
+    .pay-body__inner { flex-direction: column; }
+    .pay-form__row { flex-direction: column; }
+    .pay-body { padding: 100px 5% 60px; }
+
+    /* ── Contact page ── */
+    .con-body__inner { flex-direction: column; }
+    .con-form__row { flex-direction: column; }
+
+    /* ── Section padding ── */
+    .premium-services,
+    .supplementary-services,
+    .vehicle-services-section,
+    .vehicle-cta,
+    .imp-services,
+    .imp-compliance,
+    .export-description,
+    .abt-story,
+    .abt-mv,
+    .abt-values,
+    .abt-why { padding: 60px 5%; }
+
+    .import-premium-hero,
+    .export-hero,
+    .vehicle-hero,
+    .about-hero { padding: 120px 5% 60px; }
+
+    /* ── Footer ── */
     .footer-bottom, .con-footer {
         flex-direction: column;
         text-align: center;
         justify-content: center;
+        gap: 1rem;
+    }
+
+    /* ── Scroll-to-top position tweak on mobile ── */
+    #scrollToTopBtn {
+        bottom: 1.2rem;
+        right: 1.2rem;
+        width: 44px;
+        height: 44px;
     }
 }
+
 /* ===================== */
 /* EXPORT PAGE STYLES    */
 /* ===================== */
@@ -928,4 +1159,51 @@ nav ul li a.nav-btn-pay:hover {
     color: var(--text-muted);
     max-width: 560px;
     line-height: 1.8;
+}
+
+/* ===================== */
+/* SCROLL TO TOP BUTTON  */
+/* ===================== */
+
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(0, 242, 255, 0.1);
+    border: 1px solid rgba(0, 242, 255, 0.35);
+    color: var(--accent);
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px) scale(0.9);
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease,
+                background 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 0 14px rgba(0, 242, 255, 0.12);
+}
+
+#scrollToTopBtn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+#scrollToTopBtn:hover {
+    background: var(--accent);
+    color: var(--primary);
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 0 0 28px rgba(0, 242, 255, 0.45);
+}
+
+#scrollToTopBtn:active {
+    transform: translateY(-1px) scale(1.02);
 }
