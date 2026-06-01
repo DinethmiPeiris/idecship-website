@@ -6,16 +6,16 @@ Official website for IDECSHIP.
 
 IDECSHIP is a modern web platform designed to provide a clean and professional online presence. The website includes responsive pages, smooth navigation, animations, and user-friendly design for visitors across desktop and mobile devices.
 
-### Features
+## Features
 
 -**Responsive modern UI**
 -**Fast loading pages**
 -**Mobile-friendly design**
 -**Custom domain integration**
--**GitHub-based deploymen**
+-**GitHub-based deployment**
 -**Hosted using Netlify**
 
-## Technologies Used
+### Technologies Used
 
 -HTML
 -CSS
